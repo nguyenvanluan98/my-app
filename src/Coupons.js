@@ -1,5 +1,5 @@
-import React from "react";
-import "./Coupons.css"; // Import CSS riêng cho Coupons
+import React, { useState, useEffect } from "react";
+import "./Coupons.css";
 
 function generateRandomCode() {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -11,84 +11,78 @@ function generateRandomCode() {
 }
 
 function Coupons() {
-  const coupons = [
-    {
-      title: "MIỄN PHÍ VẬN CHUYỂN",
-      description: "Freeship cho đơn hàng từ 500k",
-      code: generateRandomCode(),
-      icon: "//bizweb.dktcdn.net/thumb/medium/100/484/026/themes/953543/assets/coupon_1_img.png?1738827047187",
-      expiry: "30/12/2024",
-    },
-    {
-      title: "GIẢM 50K",
-      description: "Áp dụng cho đơn hàng từ 600k",
-      code: generateRandomCode(),
-      icon: "//bizweb.dktcdn.net/thumb/medium/100/484/026/themes/953543/assets/coupon_2_img.png?1738827047187",
-      expiry: "30/12/2024",
-    },
-    {
-      title: "GIẢM 30%",
-      description: "Cho các sản phẩm trong Set đồ tập",
-      code: generateRandomCode(),
-      icon: "//bizweb.dktcdn.net/thumb/medium/100/484/026/themes/953543/assets/coupon_3_img.png?1738827047187",
-      expiry: "01/09/2023",
-    },
-    {
-      title: "GIẢM 40%",
-      description: "Cho sản phẩm thứ 4 trong đơn hàng",
-      code: generateRandomCode(),
-      icon: "//bizweb.dktcdn.net/thumb/medium/100/484/026/themes/953543/assets/coupon_4_img.png?1738827047187",
-      expiry: "20/05/2023",
-    },
-  ];
+  const [coupons, setCoupons] = useState([]);
+  const [copiedIndex, setCopiedIndex] = useState(null); // Trạng thái để theo dõi nút đã sao chép
+
+  useEffect(() => {
+    const generatedCoupons = [
+      {
+        title: "MIỄN PHÍ VẬN CHUYỂN",
+        description: "Freeship cho đơn hàng từ 500k",
+        code: "EGAFREESHIP",
+        expiry: "01/05/2025",
+        expired: false,
+        note: "Áp dụng cho tất cả các đơn hàng trên toàn quốc.",
+      },
+      {
+        title: "GIẢM 50K",
+        description: "Áp dụng cho đơn hàng từ 600k",
+        code: "GIAM50K",
+        expiry: "01/09/2023",
+        expired: false,
+      },
+      {
+        title: "GIẢM 30%",
+        description: "Cho các sản phẩm trong Set đồ tập",
+        code: "GIAM30",
+        expiry: "01/09/2023",
+        expired: true,
+      },
+      {
+        title: "GIẢM 40%",
+        description: "Cho sản phẩm thứ 4 trong đơn hàng",
+        code: "GIAM40",
+        expiry: "20/05/2023",
+        expired: true,
+      },
+    ];
+    setCoupons(generatedCoupons);
+  }, []);
+
+  const handleCopy = (code, index) => {
+    navigator.clipboard.writeText(code);
+    setCopiedIndex(index); // Đánh dấu nút đã sao chép
+    setTimeout(() => setCopiedIndex(null), 2000); // Reset trạng thái sau 2 giây
+  };
 
   return (
-    <div className="section_coupons">
-      <div className="container card border-0">
-        <div className="row scroll justify-content-xl-center">
-          {coupons.map((coupon, index) => (
-            <div
-              key={index}
-              className="coupon-item-wrap py-2 col-lg-3 col-md-5 col-lg col-10"
-            >
-              <div className="coupon_item coupon--new-style">
-                <div className="coupon_icon pos-relative embed-responsive embed-responsive-1by1">
-                  <img
-                    className="img-fluid"
-                    src={coupon.icon}
-                    alt={coupon.title}
-                    width="79"
-                    height="70"
-                  />
-                </div>
-                <div className="coupon_body">
-                  <div className="coupon_head coupon--has-info">
-                    <h3 className="coupon_title">{coupon.title}</h3>
-                    <div className="coupon_desc">{coupon.description}</div>
-                  </div>
-                  <div className="d-flex align-items-center flex-wrap justify-content-between">
-                    <div className="coupon-code-body">
-                      <div className="coupon-code-row">
-                        <span>Mã:</span> {coupon.code}
-                      </div>
-                      <div className="coupon-code-row">
-                        <span>HSD:</span> {coupon.expiry}
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      className="btn btn-main btn-sm coupon_copy mb-0"
-                      onClick={() => navigator.clipboard.writeText(coupon.code)}
-                    >
-                      <span>Sao chép</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+    <div className="coupons-container">
+      {coupons.map((coupon, index) => (
+        <div key={index} className="coupon-card">
+          <div className="coupon-icon">
+            <img
+              src="//bizweb.dktcdn.net/thumb/medium/100/484/026/themes/953543/assets/coupon_2_img.png?1738827047187"
+              alt="coupon-icon"
+            />
+          </div>
+          <div className="coupon-content">
+            <h3 className="coupon-title">{coupon.title}</h3>
+            <p className="coupon-description">{coupon.description}</p>
+            <div className="coupon-expiry-row">
+              <p className="coupon-expiry">HSD: {coupon.expiry}</p>
+              <button
+                className={`coupon-button ${
+                  copiedIndex === index ? "copied" : ""
+                }`}
+                onClick={() => handleCopy(coupon.code, index)}
+                disabled={copiedIndex === index}
+              >
+                {copiedIndex === index ? "Đã sao chép" : "Sao chép"}
+              </button>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 }

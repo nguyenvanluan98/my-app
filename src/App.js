@@ -4,6 +4,7 @@ import "./App.css";
 import Header from "./Header";
 import Content from "./Content";
 import About from "./About"; // Import About component
+import Footer from "./Footer"; // Import Footer component
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Content />} />
           <Route path="/about" element={<About />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

@@ -1,8 +1,10 @@
 import React from "react";
 import "./Content.css";
 import ProductList from "./ProductList";
-import Coupons from "./Coupons";
+import Coupons from "./Coupons"; // Import Coupons component
 import ResponsiveImage from "./ResponsiveImage"; // Import ResponsiveImage component
+import { gsap } from "gsap"; // Import GSAP for animations
+import { useState } from "react"; // Import useState for state management
 
 function Content() {
   return (
@@ -12,29 +14,9 @@ function Content() {
         <ResponsiveImage />
       </div>
 
-      {/* Mã giảm giá */}
-      <div className="section_coupons">
-        <div className="container">
-          <div className="coupon-item-wrap">
-            <div className="coupon_item">
-              <div className="coupon_icon">
-                <img src="icon1.png" alt="Coupon 1" />
-              </div>
-              <h3 className="coupon_title">MIỄN PHÍ VẬN CHUYỂN</h3>
-              <p className="coupon_desc">Freeship cho đơn hàng từ 500k</p>
-            </div>
-          </div>
-          <div className="coupon-item-wrap">
-            <div className="coupon_item">
-              <div className="coupon_icon">
-                <img src="icon2.png" alt="Coupon 2" />
-              </div>
-              <h3 className="coupon_title">GIẢM 50K</h3>
-              <p className="coupon_desc">Áp dụng cho đơn hàng từ 600k</p>
-            </div>
-          </div>
-          {/* Thêm các mã giảm giá khác */}
-        </div>
+      {/* Thêm mã giảm giá */}
+      <div className="coupons-section">
+        <Coupons />
       </div>
 
       {/* Danh sách sản phẩm */}

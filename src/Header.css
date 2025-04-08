@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between; /* Căn đều logo, menu và icon */
   align-items: center;
-  padding: 15px 30px;
+  padding: 10px 30px; /* Giảm padding để gọn hơn */
   background-color: #ffffff; /* Nền trắng */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng nhẹ */
   position: fixed;
@@ -11,7 +11,7 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  font-family: "Roboto", sans-serif; /* Font đẹp hơn */
+  font-family: "Roboto", sans-serif; /* Font chữ đẹp */
 }
 
 .logo {
@@ -34,7 +34,7 @@
 .main-menu .menu {
   list-style: none;
   display: inline-flex;
-  gap: 20px; /* Khoảng cách giữa các mục menu */
+  gap: 30px; /* Tăng khoảng cách giữa các mục menu */
   margin: 0;
   padding: 0;
 }
@@ -97,8 +97,8 @@
 .main-menu .menu li a {
   text-decoration: none;
   color: #000000; /* Chữ đen */
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-size: 1rem; /* Kích thước chữ */
+  font-weight: 500; /* Độ đậm chữ */
   text-align: center;
   transition: color 0.3s ease;
 }
@@ -109,15 +109,14 @@
 
 .menu-icons {
   display: flex;
-  gap: 15px; /* Khoảng cách giữa các icon */
-  margin-right: 60px; /* Di chuyển toàn bộ nhóm icon sang bên trái 60px */
+  gap: 20px; /* Tăng khoảng cách giữa các icon */
 }
 
 .icon-btn {
   background: none;
   border: none;
   color: #000000; /* Chữ đen */
-  font-size: 1.2rem;
+  font-size: 1.2rem; /* Kích thước icon */
   cursor: pointer;
   transition: transform 0.3s ease, color 0.3s ease;
 }
@@ -128,7 +127,7 @@
 }
 
 body {
-  padding-top: 60px; /* Đảm bảo nội dung không bị che bởi thanh menu */
+  padding-top: 70px; /* Đảm bảo nội dung không bị che bởi thanh menu */
 }
 
 .App {
@@ -215,12 +214,7 @@ body {
 
 /* Hamburger Menu */
 .hamburger-btn {
-  display: none; /* Ẩn trên màn hình lớn */
-  background: none;
-  border: none;
-  color: #000000;
-  font-size: 1.5rem;
-  cursor: pointer;
+  display: none; /* Ẩn nút hamburger trên màn hình lớn */
 }
 
 @media (max-width: 768px) {
@@ -230,13 +224,13 @@ body {
   }
 
   .main-menu {
-    display: none; /* Ẩn menu trên màn hình nhỏ */
+    display: none; /* Ẩn menu chính trên màn hình nhỏ */
     position: absolute;
-    top: 100%;
+    top: 60px;
     left: 0;
     width: 100%;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
   }
 
@@ -247,7 +241,16 @@ body {
   .main-menu .menu {
     flex-direction: column; /* Menu dạng cột */
     gap: 10px;
-    padding: 10px 0;
+    padding: 10px;
+  }
+
+  .menu {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .menu li {
+    margin: 10px 0;
   }
 
   .menu-icons {
@@ -255,7 +258,15 @@ body {
   }
 
   .hamburger-btn {
-    display: block; /* Hiển thị icon 3 gạch */
+    display: flex; /* Hiển thị nút hamburger trên màn hình nhỏ */
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
   }
 }
 
@@ -271,4 +282,27 @@ body {
   .icon-btn {
     font-size: 1rem;
   }
+}
+
+/* Nút giỏ hàng */
+.cart-btn {
+  position: relative;
+}
+
+/* Số lượng sản phẩm trong giỏ hàng */
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #dc3545;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
 }
